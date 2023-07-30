@@ -5,5 +5,7 @@ module.exports = {
       '^.+\\.ts?$': 'ts-jest',
     },
     transformIgnorePatterns: ['<rootDir>/node_modules/'],
+    testPathIgnorePatterns: ['/__tests__/.*util\\.js$', '/__tests__/.*helpers\\.js$'],
+
   };
   

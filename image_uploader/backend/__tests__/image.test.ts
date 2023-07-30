@@ -2,24 +2,24 @@ import axios, { AxiosResponse } from 'axios'
 import fs from 'fs'
 import path from 'path';
 import FormData from 'form-data';
+import { getProgressArray, uploadImage } from './image.utils';
 
 describe('Image Upload API', () => {
   let response: AxiosResponse
   const destinationFolderPath = 'uploads/';
+
   beforeAll(async()=>{
+
     const files = fs.readdirSync(destinationFolderPath);
     files.forEach((file) => {
       const filePath = path.join(destinationFolderPath, file);
       fs.unlinkSync(filePath);
-    });
-const imageUrl = 'image.svg'
-    const formData = new FormData();
-    formData.append('image', fs.createReadStream(imageUrl));
-    response = await axios.post('http://localhost:3000/upload', formData, {
-      headers: formData.getHeaders(),
-    });
+  });
 
-  })
+
+    response = await uploadImage()
+
+  }, 10000)
 
   it('image get saved in the dest folder', ()=>{
 
@@ -30,7 +30,7 @@ const imageUrl = 'image.svg'
     // Make sure there is at least one file in the destination folder
     expect(fileCount).toBeGreaterThan(0);
   })
-  it('create socket when upload',async () => {
+  it('should add image to the image pools',async () => {
 
     expect(response.status).toBe(200)
     expect(response.data.message).toEqual('Image uploaded successfully!' );
@@ -45,4 +45,19 @@ const imageUrl = 'image.svg'
     expect(result.data.progress).toBeLessThanOrEqual(100)
   })
   
+  it('should update the progress priodically', async()=> {
+
+
+    response = await uploadImage()
+    const progressArray = await getProgressArray(response)  
+
+    console.log(progressArray)
+    for (let i = 0; i < progressArray.length - 1; i++) {
+      const currentProgress = progressArray[i];
+      const nextProgress = progressArray[i + 1];
+      expect(nextProgress).toBeGreaterThan(currentProgress);
+
+      if(currentProgress === 100)
+        break
+    }  }, 10000)
 });
