@@ -16,7 +16,7 @@ export const getProgressArray =async (response:AxiosResponse) => {
     const progressArray : number[] = []     
 
     let imageId = response.data.imageId
-
+  
     const fetchProgress = async () => {
       try {
         const result: AxiosResponse = await axios.get(`http://localhost:3000/upload/${imageId}`);
