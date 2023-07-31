@@ -9,6 +9,9 @@ export default {
       fontFamily: {
         pop: 'Poppins, sans-serif',
         noto: 'Noto Sans, sans-serif'
+      },
+      colors: {
+        mblue: '#2F80ED'
       }
     },
   },

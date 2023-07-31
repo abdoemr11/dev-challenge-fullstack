@@ -1,10 +1,11 @@
 import { FormEvent, useRef, useState } from "react";
 import uploadImg from "../assets/image.svg";
-import { uploadImage } from "../supabase";
+import useSupaBase from "../useSupabase";
+import Header from "./Header";
 
 function AcceptImage() {
     const ref = useRef<HTMLInputElement>(null);
-
+    const [uploadImage] = useSupaBase();
     const handleClick = () => {
         if (ref.current) ref.current.click();
     };
@@ -35,18 +36,16 @@ function AcceptImage() {
     };
 
     return (
-        <main
-            className=" w-[25.125rem] bg-white  mx-auto mt-48 rounded-xl font-pop font-medium p-9
-                 shadow-[0px_4px_12px_0px_rgba(0,0,0,0.10)]"
-        >
-            <h1 className="text-lg text-[#4f4f4f] mb-4">Upload your image</h1>
-            <p className=" text-[.625rem] text-[#828282] mb-7">
+        <section>
+            <Header text="Upload your image" />
+            <p className=" text-[.625rem] text-[#828282] mb-7 mt-4">
                 File should be Jpeg, Png,...
             </p>
             <section
-                className="bg-[#F6F8FB] pt-9 pb-10 border border-dashed border-[#97BEF4] rounded-xl"
+                className="bg-[#F6F8FB] pt-9 pb-10 border border-dashed border-[#97BEF4] rounded-xl cursor-pointer"
                 onDrop={handleDrop}
                 onDragOver={handleDragOver}
+                onClick={handleClick}
             >
                 <img src={uploadImg} alt="upload image" className="mx-auto" />
                 <p className="text-xs tracking-tight text-[#bdbdbd] mt-9 ">
@@ -55,7 +54,7 @@ function AcceptImage() {
             </section>
             <p className="text-xs text-[#bdbdbd] mt-5 mb-7">Or</p>
             <button
-                className="text-white text-xs py-2 px-4 bg-[#2F80ED] rounded-lg font-noto"
+                className="text-white text-xs py-2 px-4 bg-mblue rounded-lg font-noto"
                 onClick={handleClick}
             >
                 Choose a file
@@ -67,7 +66,7 @@ function AcceptImage() {
                 accept="image/*"
                 onChange={handleInputChange}
             />
-        </main>
+        </section>
     );
 }
 
