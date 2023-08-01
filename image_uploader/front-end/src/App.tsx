@@ -8,8 +8,8 @@ function App() {
 
     return (
         <main
-            className="max-w-[25.125rem] bg-white  mx-auto  rounded-xl font-pop font-medium p-9
-        shadow-[0px_4px_12px_0px_rgba(0,0,0,0.10)]"
+            className="max-w-[25.125rem] bg-white  mx-auto  container rounded-xl font-pop font-medium p-9
+        shadow-[0px_4px_12px_0px_rgba(0,0,0,0.10)] "
         >
             {currentScreen === "acceptImage" ? (
                 <AcceptImage />
