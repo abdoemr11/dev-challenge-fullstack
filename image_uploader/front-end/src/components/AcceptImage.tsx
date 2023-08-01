@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from "react";
+import { useRef } from "react";
 import uploadImg from "../assets/image.svg";
 import useSupaBase from "../useSupabase";
 import Header from "./Header";

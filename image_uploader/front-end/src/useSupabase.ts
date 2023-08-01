@@ -1,4 +1,3 @@
-import { SupabaseClient, createClient } from "@supabase/supabase-js";
 import { useAppState } from "./store";
 import { useEffect } from "react";
 
@@ -12,7 +11,7 @@ export default function useSupaBase() {
         ]);
     useEffect(() => {
         intializeSupabase();
-    }, []);
+    }, [intializeSupabase]);
     const uploadImage = async (file: File) => {
         console.log("uploading image");
 
@@ -25,7 +24,7 @@ export default function useSupaBase() {
         formData.append("file", file);
         const filename = generateUniqueFilename(file);
 
-        const { data, error } = await supabase.storage
+        const { error } = await supabase.storage
             .from("images")
             .upload(`${filename}`, file, {
                 cacheControl: "3600", // optional caching setting
