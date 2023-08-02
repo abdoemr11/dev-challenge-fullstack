@@ -13,7 +13,8 @@ export default function useSupaBase() {
     const insertImageWithMetadat = async (
         label: string,
         password: string,
-        imagePath: string
+        imagePath: string,
+        imageUrl: string
     ) => {
         try {
             console.log("inserting into the database");
@@ -23,6 +24,7 @@ export default function useSupaBase() {
                 image_path: imagePath,
                 image_label: label,
                 image_password: password,
+                image_url: imageUrl,
             });
         } catch (error) {
             console.error("Error inserting image metadata:", error);
@@ -51,7 +53,7 @@ export default function useSupaBase() {
         const imagePublicUrl = supabase.storage
             .from("images")
             .getPublicUrl(imageData.path).data.publicUrl;
-        return imagePublicUrl;
+        return { imagePublicUrl, imagePath: imageData.path };
     };
     return { uploadImage, insertImageWithMetadat };
 }

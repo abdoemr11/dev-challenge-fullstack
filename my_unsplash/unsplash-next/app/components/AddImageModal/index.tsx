@@ -41,8 +41,13 @@ export default function AddImageModal({
             return;
         }
         try {
-            const imagePath = await uploadImage(imageFile);
-            await insertImageWithMetadat(label, password, imagePath);
+            const imageData = await uploadImage(imageFile);
+            await insertImageWithMetadat(
+                label,
+                password,
+                imageData.imagePath,
+                imageData.imagePublicUrl
+            );
         } catch (error) {
             console.log(error);
             setIsUploading(false);
@@ -53,7 +58,7 @@ export default function AddImageModal({
     if (!isopen) return null;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
+        <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-25">
             <form className="bg-white p-6 rounded-xl shadow-lg md:w-[38rem]">
                 <h2 className="text-2xl font-medium mb-5 text-[#333]">
                     Add a new photo
