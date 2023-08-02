@@ -13,6 +13,7 @@ export default function ChooseImageButton({
             <button
                 className="text-white bg-gray-500 py-3 px-6 rounded-xl "
                 onClick={handleClick}
+                type="button"
             >
                 Choose a file
             </button>
@@ -22,6 +23,7 @@ export default function ChooseImageButton({
                 className="hidden"
                 accept="image/*"
                 onChange={handleChooseImage}
+                required
             />
         </>
     );

@@ -3,7 +3,6 @@ import Image from "next/image";
 import ChooseImageButton from "./ChooseImageButton";
 import { useState } from "react";
 import useSupaBase from "../../hooks/useSupabase";
-import { useForm } from "react-hook-form";
 export default function AddImageModal({
     isopen,
     closeModal,
@@ -15,7 +14,8 @@ export default function AddImageModal({
     const [imageFile, setImageFile] = useState<File>();
     const { uploadImage, insertImageWithMetadat } = useSupaBase();
     const [isUploading, setIsUploading] = useState(false);
-    const { handleSubmit, register } = useForm();
+    const [label, setLabel] = useState("");
+    const [password, setPassword] = useState("");
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (!event.target.files) return;
 
@@ -37,13 +37,15 @@ export default function AddImageModal({
         setIsUploading(true);
         if (!imageFile) {
             console.error("trying to upload the undefined image");
+            setTimeout(() => setIsUploading(false), 1500);
             return;
         }
         try {
             const imagePath = await uploadImage(imageFile);
-            await insertImageWithMetadat("test label", "passy", imagePath);
+            await insertImageWithMetadat(label, password, imagePath);
         } catch (error) {
             console.log(error);
+            setIsUploading(false);
         }
         setIsUploading(false);
         closeModal();
@@ -52,10 +54,7 @@ export default function AddImageModal({
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
-            <form
-                className="bg-white p-6 rounded-xl shadow-lg md:w-[38rem]"
-                onSubmit={handleSubmit(uploadImageWithInfo)}
-            >
+            <form className="bg-white p-6 rounded-xl shadow-lg md:w-[38rem]">
                 <h2 className="text-2xl font-medium mb-5 text-[#333]">
                     Add a new photo
                 </h2>
@@ -63,28 +62,36 @@ export default function AddImageModal({
                     <div className="form-group">
                         <label
                             className=" text-[#4F4F4F] text-sm font-medium  mb-2"
-                            htmlFor="input1"
+                            htmlFor="label"
                         >
                             Label
                         </label>
                         <input
-                            {...register("label")}
+                            id="label"
+                            name="label"
                             className="border border-[#4f4f4f] rounded-xl outline-none  w-full placeholder:text-[#bdbdbd]
                             text-sm p-4  "
+                            value={label}
+                            onChange={(e) => setLabel(e.target.value)}
+                            required
                         />
                     </div>
 
                     <div className="form-group">
                         <label
                             className="text-[#4F4F4F] text-sm font-medium mb-2"
-                            htmlFor="input3"
+                            htmlFor="password"
                         >
                             Password
                         </label>
                         <input
-                            {...register("password")}
+                            id="password"
+                            name="password"
                             className="border border-[#4f4f4f] rounded-xl outline-none  w-full  placeholder:text-[#bdbdbd]
                             text-sm p-4 "
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
                         />
                     </div>
                     <div className="form-group flex justify-between items-center">
@@ -107,6 +114,8 @@ export default function AddImageModal({
                         className="text-white bg-[#3DB46D] py-3 px-6 rounded-xl ml-auto 
                                  disabled:bg-[#add6be]"
                         disabled={isUploading}
+                        onClick={uploadImageWithInfo}
+                        type="submit"
                     >
                         {!isUploading ? "Submit" : "uploading"}
                     </button>

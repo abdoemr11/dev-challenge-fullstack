@@ -9,6 +9,7 @@ export default function useSupaBase() {
         const client = createClient(url, process.env.NEXT_PUBLIC_SUPABASE_KEY);
         setSupabase(client);
     }, []);
+
     const insertImageWithMetadat = async (
         label: string,
         password: string,
@@ -27,6 +28,7 @@ export default function useSupaBase() {
             console.error("Error inserting image metadata:", error);
         }
     };
+
     const uploadImage = async (file: File) => {
         console.log("uploading image");
 
@@ -46,7 +48,10 @@ export default function useSupaBase() {
             console.error("Error uploading file:", error);
             throw new Error("failed to upload the image");
         }
-        return imageData.path;
+        const imagePublicUrl = supabase.storage
+            .from("images")
+            .getPublicUrl(imageData.path).data.publicUrl;
+        return imagePublicUrl;
     };
     return { uploadImage, insertImageWithMetadat };
 }
@@ -60,5 +65,5 @@ const generateUniqueFilename = (file: File) => {
     const timestamp = new Date().getTime();
     const randomString = Math.random().toString(36).substring(2, 8);
     const sanitizedFilename = sanitizeFilename(file.name);
-    return `image_uploads/${timestamp}_${randomString}_${sanitizedFilename}`;
+    return `unsplash/${timestamp}_${randomString}_${sanitizedFilename}`;
 };
