@@ -3,6 +3,7 @@ import Image from "next/image";
 import ChooseImageButton from "./ChooseImageButton";
 import { useState } from "react";
 import useSupaBase from "../../hooks/useSupabase";
+import { useSWRConfig } from "swr";
 export default function AddImageModal({
     isopen,
     closeModal,
@@ -16,6 +17,8 @@ export default function AddImageModal({
     const [isUploading, setIsUploading] = useState(false);
     const [label, setLabel] = useState("");
     const [password, setPassword] = useState("");
+    const { mutate } = useSWRConfig();
+
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (!event.target.files) return;
 
@@ -48,6 +51,7 @@ export default function AddImageModal({
                 imageData.imagePath,
                 imageData.imagePublicUrl
             );
+            mutate("images");
         } catch (error) {
             console.log(error);
             setIsUploading(false);

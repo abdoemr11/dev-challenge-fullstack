@@ -14,11 +14,6 @@ export default function Header() {
                     <span className="material-icons-outlined absolute left-2 text-[#BDBDBD]">
                         search
                     </span>
-                    <input
-                        type="text"
-                        placeholder="Search by Name"
-                        className="flex-1  placeholder:text-[#BDBDBD] pl-10 pr-4 py-2 border border-[#BDBDBD] rounded-md focus:outline-none"
-                    />
                 </div>
             </div>
             <AddImageButton />

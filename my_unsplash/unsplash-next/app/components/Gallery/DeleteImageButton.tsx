@@ -15,7 +15,7 @@ export default function DeleteImageButton({ image }: { image: ImageRecord }) {
         <>
             <button
                 className="text-ared border border-ared py-1 
-                    px-4 rounded-3xl text-[10px] absolute right-4 top-4 hidden"
+                    px-4 rounded-3xl text-[10px] absolute right-4 top-4 hidden z-20"
                 onClick={openDeleteModal}
             >
                 delete
