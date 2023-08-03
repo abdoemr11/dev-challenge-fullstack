@@ -1,15 +1,8 @@
 import { SupabaseClient, createClient } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
+import supabase from "../utils/supa";
 
 export default function useSupaBase() {
-    let [supabase, setSupabase] = useState<SupabaseClient>();
-    useEffect(() => {
-        const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-
-        const client = createClient(url, process.env.NEXT_PUBLIC_SUPABASE_KEY);
-        setSupabase(client);
-    }, []);
-
     const insertImageWithMetadat = async (
         label: string,
         password: string,

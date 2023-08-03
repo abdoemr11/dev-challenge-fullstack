@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
 import ChooseImageButton from "./ChooseImageButton";
-import { useState } from "react";
-import useSupaBase from "../../hooks/useSupabase";
-import { useSWRConfig } from "swr";
+import { useState, useEffect } from "react";
+
+import SubmitImageButton from "./SubmitImageButton";
 export default function AddImageModal({
     isopen,
     closeModal,
@@ -13,12 +13,19 @@ export default function AddImageModal({
 }) {
     const [previewImgSrc, setPreivewImgSrc] = useState("/image_preview.svg");
     const [imageFile, setImageFile] = useState<File>();
-    const { uploadImage, insertImageWithMetadat } = useSupaBase();
-    const [isUploading, setIsUploading] = useState(false);
     const [label, setLabel] = useState("");
     const [password, setPassword] = useState("");
-    const { mutate } = useSWRConfig();
+    const [formError, setFormError] = useState("");
 
+    const closeModalAndReset = () => {
+        console.log("closing");
+        setLabel("");
+        setFormError("");
+        setImageFile(undefined);
+        setPassword("");
+        setPreivewImgSrc("/image_preview.svg");
+        closeModal();
+    };
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (!event.target.files) return;
 
@@ -36,29 +43,9 @@ export default function AddImageModal({
             alert("Only image files are allowed!");
         }
     };
-    const uploadImageWithInfo = async () => {
-        setIsUploading(true);
-        if (!imageFile) {
-            console.error("trying to upload the undefined image");
-            setTimeout(() => setIsUploading(false), 1500);
-            return;
-        }
-        try {
-            const imageData = await uploadImage(imageFile);
-            await insertImageWithMetadat(
-                label,
-                password,
-                imageData.imagePath,
-                imageData.imagePublicUrl
-            );
-            mutate("images");
-        } catch (error) {
-            console.log(error);
-            setIsUploading(false);
-        }
-        setIsUploading(false);
-        closeModal();
-    };
+    useEffect(() => {
+        console.log("mounting the image modal");
+    }, []);
     if (!isopen) return null;
 
     return (
@@ -115,19 +102,27 @@ export default function AddImageModal({
                         />
                     </div>
                 </div>
+                <div>
+                    {formError !== "" ? (
+                        <p className="text-ared text-xs mt-4">{formError}</p>
+                    ) : (
+                        ""
+                    )}
+                </div>
                 <div className="mt-6 space-x-4 flex justify-end">
-                    <button onClick={closeModal} className=" text-[#bdbdbd] ">
+                    <button
+                        onClick={closeModalAndReset}
+                        className=" text-[#bdbdbd] "
+                    >
                         Cancel
                     </button>
-                    <button
-                        className="text-white bg-[#3DB46D] py-3 px-6 rounded-xl ml-auto 
-                                 disabled:bg-[#add6be]"
-                        disabled={isUploading}
-                        onClick={uploadImageWithInfo}
-                        type="submit"
-                    >
-                        {!isUploading ? "Submit" : "uploading"}
-                    </button>
+                    <SubmitImageButton
+                        imageFile={imageFile}
+                        label={label}
+                        password={password}
+                        closeModal={closeModalAndReset}
+                        setError={setFormError}
+                    />
                 </div>
             </form>
         </div>

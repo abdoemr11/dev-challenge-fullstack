@@ -4,8 +4,13 @@ import supabase from "../../utils/supa";
 import ImageWithInfo from "./ImageWithInfo";
 import useSwr from "swr";
 import useImageStore from "@/app/hooks/useImageStore";
-const fetcher = async () => {
-    const { data, error } = await supabase.from("unsplash").select("*");
+const fetcher = async (searchLabel: string) => {
+    console.log("search label i s", searchLabel);
+
+    const { data, error } = await supabase
+        .from("unsplash")
+        .select("*")
+        .like("image_label", `%${searchLabel[1]}%`);
     if (error) {
         throw new Error("Error fetching data");
     }
@@ -13,7 +18,7 @@ const fetcher = async () => {
 };
 export default function Gallery() {
     const { searchLabel } = useImageStore();
-    const { data: images, error } = useSwr(searchLabel, fetcher);
+    const { data: images, error } = useSwr(["key", searchLabel], fetcher);
 
     if (!images && !Array.isArray(images)) return <p>no images</p>;
     return (
