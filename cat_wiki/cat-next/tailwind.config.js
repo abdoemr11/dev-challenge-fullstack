@@ -10,6 +10,9 @@ module.exports = {
       fontFamily: {
         'montserrat': 'var(--font-montserrat)',
         'mystery': 'var(--font-mystery)'
+      },
+      colors: {
+        'primary': '#291507'
       }
     },
   },

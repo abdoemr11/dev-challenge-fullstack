@@ -33,14 +33,11 @@ export default function SearchCat({ breeds }: { breeds: Breed[] }) {
                 >
                     <ul>
                         {filteredBreeds.map((breed, index) => (
-                            <li
-                                key={index}
-                                className="hover:bg-[#9797971A] py-4 cursor-pointer"
-                            >
-                                <Link href={`breed/${breed.id}`}>
+                            <Link href={`breed/${breed.id}`} key={index}>
+                                <li className="hover:bg-[#9797971A] py-4 cursor-pointer">
                                     {breed.name}
-                                </Link>
-                            </li>
+                                </li>
+                            </Link>
                         ))}
                     </ul>
                 </div>

@@ -11,3 +11,4 @@
 ## Cat Wiki
 - It's the perfect example of Static Side rendering. The only dynamic aspect is the top searched cat breads.
 - I can achive this with with key value store and to presist it I can store it to pocketbase 
+- The Boundary for errors and Loading is something that need more researching.

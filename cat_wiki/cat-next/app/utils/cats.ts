@@ -1,7 +1,12 @@
 import { headers } from "next/dist/client/components/headers";
 
 export async function getCatBreads(): Promise<Breed[]> {
-    const res = await fetch(`https://api.thecatapi.com/v1/breeds`);
+    const res = await fetch(`https://api.thecatapi.com/v1/breeds`, {
+        headers: {
+            "x-api-key":
+                "live_lWWKFAqD37hI6VvI9Ssou26bRvqk8Vrq8W4Yfdk1T2FqbfiAptBUEQ1JNIFbFloS",
+        },
+    });
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
         throw new Error("Failed to fetch data");
@@ -11,7 +16,12 @@ export async function getCatBreads(): Promise<Breed[]> {
 }
 
 export async function getSingleCat(id: string): Promise<Breed> {
-    const res = await fetch(`https://api.thecatapi.com/v1/breeds/${id}`);
+    const res = await fetch(`https://api.thecatapi.com/v1/breeds/${id}`, {
+        headers: {
+            "x-api-key":
+                "live_lWWKFAqD37hI6VvI9Ssou26bRvqk8Vrq8W4Yfdk1T2FqbfiAptBUEQ1JNIFbFloS",
+        },
+    });
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
         throw new Error("Failed to fetch data");
@@ -35,7 +45,8 @@ export async function getBreedImages(id: string): Promise<CatImage[]> {
 
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
-        throw new Error("Failed to fetch data");
+        console.log(res.status);
+        throw new Error("Failed to fetch the breed");
     }
 
     return res.json();

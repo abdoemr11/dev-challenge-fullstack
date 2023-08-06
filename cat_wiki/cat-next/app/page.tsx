@@ -4,13 +4,19 @@ import masterCat from "./assets/HeroImagesm.png";
 import masterCatSm from "./assets/HeroImagelg.png";
 import SearchCat from "./SearchCat";
 import { getCatBreads } from "./utils/cats";
-import Link from "next/link";
+import TrendBreeds from "./components/TrendBreeds";
+import Article from "./components/Article";
 
 export default async function Home() {
-    const breeds = await getCatBreads();
+    let breeds: Breed[] = [];
+    try {
+        breeds = await getCatBreads();
+    } catch (error) {
+        console.log(error);
+    }
     return (
         <main>
-            <header className="bg-black flex justify-between  px-7 md:px-[108px] rounded-t-[4rem] ">
+            <header className="bg-black flex justify-between  px-7 md:px-28 rounded-t-[4rem] ">
                 <aside className=" self-center py-6 ">
                     <Image
                         src={catLogo}
@@ -34,6 +40,8 @@ export default async function Home() {
                     />
                 </section>
             </header>
+            <TrendBreeds />
+            <Article />
         </main>
     );
 }
