@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Mystery_Quest, Montserrat } from "next/font/google";
 import Image from "next/image";
 import catLogo from "./assets/CatwikiLogo.svg";
+import Link from "next/link";
 const mystery = Mystery_Quest({
     subsets: ["latin"],
     weight: ["400"],
@@ -31,14 +32,19 @@ export default function RootLayout({
             <body
                 className={
                     montserrat.className +
-                    "container mx-auto px-4 sm:px-8 md:px-10 py-4"
+                    "container mx-auto px-4 sm:px-8 md:px-10  "
                 }
             >
-                <header className={mystery.className + ""}>
-                    <Image src={catLogo} alt="Cat Logo" />
+                <header className="mb-6 sm:mb-10 py-4">
+                    <Link href={"/"}>
+                        <Image src={catLogo} alt="Cat Logo" />
+                    </Link>
                 </header>
                 {children}
-                <footer className="bg-black py-6 px-7 md:px-24 rounded-t-[4rem] flex flex-wrap justify-between text-xs">
+                <footer
+                    className="bg-black py-6 px-7 md:px-24 
+                rounded-t-[4rem] flex flex-wrap justify-between text-xs self-end"
+                >
                     <Image src={catLogo} alt="Cat Logo" className=" invert" />
                     <p className="text-white  ">
                         <span className="text-2xl align-middle mr-2">©</span>

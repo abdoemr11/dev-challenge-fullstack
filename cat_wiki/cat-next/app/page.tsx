@@ -1,8 +1,10 @@
 import Image from "next/image";
 import catLogo from "./assets/CatwikiLogo.svg";
 import masterCat from "./assets/HeroImagesm.png";
+import masterCatSm from "./assets/HeroImagelg.png";
 import SearchCat from "./SearchCat";
 import { getCatBreads } from "./utils/cats";
+import Link from "next/link";
 
 export default async function Home() {
     const breeds = await getCatBreads();
@@ -15,6 +17,7 @@ export default async function Home() {
                         alt="Cat Logo"
                         className="invert hidden sm:block"
                     />
+
                     <span className="text-sm font-mystery text-white sm:hidden">
                         CatWiki
                     </span>
@@ -23,8 +26,12 @@ export default async function Home() {
                     </p>
                     <SearchCat breeds={breeds} />
                 </aside>
-                <section className="w-2/3 overflow-hidden">
-                    <Image alt="Master Cat" src={masterCat} />
+                <section className="w-1/2 sm:w-2/3 overflow-hidden">
+                    <Image
+                        alt="Master Cat"
+                        src={masterCat}
+                        className="h-full "
+                    />
                 </section>
             </header>
         </main>

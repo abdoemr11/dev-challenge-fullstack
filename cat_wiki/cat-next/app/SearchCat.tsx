@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-export default function SearchCat({ breeds }: { breeds: Bread[] }) {
+export default function SearchCat({ breeds }: { breeds: Breed[] }) {
     const [searchTerm, setSearchTerm] = useState("");
     const [showModal, setShowModal] = useState(false);
 
@@ -37,7 +37,9 @@ export default function SearchCat({ breeds }: { breeds: Bread[] }) {
                                 key={index}
                                 className="hover:bg-[#9797971A] py-4 cursor-pointer"
                             >
-                                <Link href={`${breed.id}`}>{breed.name}</Link>
+                                <Link href={`breed/${breed.id}`}>
+                                    {breed.name}
+                                </Link>
                             </li>
                         ))}
                     </ul>

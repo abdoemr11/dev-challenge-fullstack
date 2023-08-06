@@ -1,4 +1,4 @@
-interface Bread {
+interface Breed {
     id: string;
     name: string;
     description: string;
@@ -14,4 +14,11 @@ interface Bread {
     health_issues: number;
     social_needs: number;
     stranger_friendly: number;
+}
+
+interface CatImage {
+    id: string;
+    url: string;
+    width: number;
+    height: number;
 }
