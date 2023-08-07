@@ -32,11 +32,11 @@ export default async function Home() {
                     </p>
                     <SearchCat breeds={breeds} />
                 </aside>
-                <section className="w-1/2 sm:w-2/3 overflow-hidden">
+                <section className="w-1/2 sm:w-2/3 flex items-center">
                     <Image
                         alt="Master Cat"
                         src={masterCat}
-                        className="h-full "
+                        className="h-[calc(100%-20px)] sm:h-full "
                     />
                 </section>
             </header>

@@ -48,7 +48,7 @@ export default function RootLayout({
                     <Image src={catLogo} alt="Cat Logo" className=" invert" />
                     <p className="text-white  ">
                         <span className="text-2xl align-middle mr-2">©</span>
-                        <span>created by abdoemr11 - devChallenge.io 2021</span>
+                        <span>created by abdoemr11 - devChallenge.io 2023</span>
                     </p>
                 </footer>
             </body>

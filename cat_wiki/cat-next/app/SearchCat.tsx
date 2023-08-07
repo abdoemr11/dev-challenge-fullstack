@@ -27,13 +27,17 @@ export default function SearchCat({ breeds }: { breeds: Breed[] }) {
             />
             {showModal && (
                 <div
-                    className="absolute bg-white p-4 rounded-3xl w-full top-[calc(100%+1rem)] z-20 max-h-[220px] 
+                    className="absolute bg-white p-4 rounded-3xl w-[calc(100%+100px)] top-[calc(100%+1rem)] z-20 max-h-[220px] 
                     shadow-md overflow-y-scroll"
                     onClick={closeModal}
                 >
                     <ul>
                         {filteredBreeds.map((breed, index) => (
-                            <Link href={`breed/${breed.id}`} key={index}>
+                            <Link
+                                href={`breed/${breed.id}`}
+                                key={index}
+                                prefetch={false}
+                            >
                                 <li className="hover:bg-[#9797971A] py-4 cursor-pointer">
                                     {breed.name}
                                 </li>

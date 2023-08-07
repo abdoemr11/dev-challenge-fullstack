@@ -1,7 +1,6 @@
-import { headers } from "next/dist/client/components/headers";
 import PocketBase from "pocketbase";
 
-const pb = new PocketBase("https://cat-wiki.pockethost.io");
+const pb = new PocketBase(process.env.PB_URL);
 let authData: any = undefined;
 export async function getCatBreads(): Promise<Breed[]> {
     const res = await fetch(`https://api.thecatapi.com/v1/breeds`, {
@@ -31,44 +30,77 @@ export async function getSingleCat(id: string): Promise<Breed> {
         // This will activate the closest `error.js` Error Boundary
         console.log(error);
 
-        throw new Error("Failed to fetch data");
+        throw new Error("Failed to get single cat");
     }
 }
-
+let counter = 0;
 export async function getBreedImages(id: string): Promise<CatImage[]> {
     try {
-    } catch (error) {}
-    console.log(id);
-    const res = await fetch(
-        `https://api.thecatapi.com/v1/images/search?breed_ids=${id}&limit=9`,
-        {
-            headers: {
-                "x-api-key":
-                    "live_lWWKFAqD37hI6VvI9Ssou26bRvqk8Vrq8W4Yfdk1T2FqbfiAptBUEQ1JNIFbFloS",
-            },
-        }
-    );
-    console.log("from getting the breed images", res.ok);
-
-    if (!res.ok) {
-        // This will activate the closest `error.js` Error Boundary
-        console.log(res.status);
-        throw new Error("Failed to fetch the breed");
+        console.log("tring to get image with id = ", id);
+        const res = await fetch(
+            `https://api.thecatapi.com/v1/images/search?breed_ids=${id}&limit=9`,
+            {
+                headers: {
+                    "x-api-key":
+                        "live_lWWKFAqD37hI6VvI9Ssou26bRvqk8Vrq8W4Yfdk1T2FqbfiAptBUEQ1JNIFbFloS",
+                },
+            }
+        );
+        console.log("from getting the breed images", res.ok);
+        console.log(++counter);
+        return res.json();
+    } catch (error) {
+        console.log("Failed to fetch the breed images with id: ", id, error);
+        // throw new Error("Failed to fetch the breed images");
+        //return default image
+        return [];
     }
-
-    return res.json();
 }
 
 export async function registerCatSearch(id: string): Promise<void> {
-    if (!authData)
-        authData = await pb.admins.authWithPassword(
-            "abdoemr11@gmail.com",
-            "123ASDzx.."
-        );
+    if (!authData) await authinticatePB();
 
     const data = {
         cat_id: id,
     };
     const record = await pb.collection("cat_trends").create(data);
     console.log(record);
+}
+
+export async function getTopSearchedCat(): Promise<{ cat_id: string }[]> {
+    if (!authData) await authinticatePB();
+    const records = await pb.collection("most_searched_cats").getFullList();
+    return records;
+}
+interface CatWithImage {
+    catId: string;
+    imageUrl: string;
+    breedName: string;
+    description: string;
+}
+export async function getBreedWithImages(catIds: { cat_id: string }[]) {
+    const breeds = await getCatBreads();
+    const catImages: CatWithImage[] = await Promise.all(
+        catIds.map(async (tb) => {
+            const breedImage = await getBreedImages(tb.cat_id);
+            console.log("image id", tb.cat_id, tb.cat_id);
+            const breed = breeds.find((br) => br.id === tb.cat_id);
+            const breedName = breed?.name || "";
+            const desc = breed?.description || "";
+            const x: CatWithImage = {
+                catId: tb.cat_id,
+                imageUrl: breedImage.length !== 0 ? breedImage[0].url : "",
+                breedName: breedName,
+                description: desc,
+            };
+            return x;
+        })
+    );
+    return catImages;
+}
+async function authinticatePB() {
+    authData = await pb.admins.authWithPassword(
+        "abdoemr11@gmail.com",
+        "123ASDzx.."
+    );
 }
