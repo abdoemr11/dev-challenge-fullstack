@@ -29,8 +29,8 @@ export async function getSingleCat(id: string): Promise<Breed> {
     } catch (error) {
         // This will activate the closest `error.js` Error Boundary
         console.log(error);
-
-        throw new Error("Failed to get single cat");
+        return {} as Breed;
+        // throw new Error("Failed to get single cat");
     }
 }
 let counter = 0;

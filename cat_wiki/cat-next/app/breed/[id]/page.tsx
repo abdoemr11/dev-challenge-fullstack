@@ -7,12 +7,14 @@ import {
 } from "../../utils/cats";
 import ProgressChart from "./ProgressChart";
 import CatHitSearch from "./CatHitSearch";
+import Error from "./error";
 
 export default async function Page({ params }: { params: { id: string } }) {
     const cat = await getSingleCat(params.id);
     const images = await getBreedImages(params.id);
     const coverImage = images[0];
     // console.log(images);
+    if (!cat.id) return <div>{"Can't find this breed"}</div>;
     return (
         <div className="mb-24 sm:mb-44">
             <CatHitSearch catId={params.id} />
