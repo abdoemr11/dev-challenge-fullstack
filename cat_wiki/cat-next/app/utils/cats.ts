@@ -66,11 +66,11 @@ export async function registerCatSearch(id: string): Promise<void> {
     const record = await pb.collection("cat_trends").create(data);
     console.log(record);
 }
-
-export async function getTopSearchedCat(): Promise<{ cat_id: string }[]> {
+type CatRecord = { cat_id: string };
+export async function getTopSearchedCat(): Promise<CatRecord[]> {
     if (!authData) await authinticatePB();
     const records = await pb.collection("most_searched_cats").getFullList();
-    return records;
+    return records as unknown as CatRecord[];
 }
 interface CatWithImage {
     catId: string;
