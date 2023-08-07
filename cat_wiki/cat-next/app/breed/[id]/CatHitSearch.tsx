@@ -7,6 +7,6 @@ export default function CatHitSearch({ catId }: { catId: string }) {
             await registerCatSearch(catId);
         };
         searchTheCat();
-    }, []);
+    }, [catId]);
     return <div></div>;
 }
