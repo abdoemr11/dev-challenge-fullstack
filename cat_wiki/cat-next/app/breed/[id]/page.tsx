@@ -1,6 +1,12 @@
 import Image from "next/image";
-import { getBreedImages, getCatBreads, getSingleCat } from "../../utils/cats";
+import {
+    getBreedImages,
+    getCatBreads,
+    getSingleCat,
+    registerCatSearch,
+} from "../../utils/cats";
 import ProgressChart from "./ProgressChart";
+import CatHitSearch from "./CatHitSearch";
 
 export default async function Page({ params }: { params: { id: string } }) {
     const cat = await getSingleCat(params.id);
@@ -9,7 +15,8 @@ export default async function Page({ params }: { params: { id: string } }) {
     // console.log(images);
     return (
         <div className="mb-24 sm:mb-44">
-            <section className="flex flex-wrap justify-between ">
+            <CatHitSearch catId={params.id} />
+            <section className="flex flex-wrap justify-between gap-y-8">
                 <aside>
                     <div className="relative">
                         <Image
@@ -24,7 +31,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                         <span className="absolute bg-[#DEC68B] -left-4 h-5/6 w-8 top-1/2 -translate-y-1/2 -z-10"></span>
                     </div>
                 </aside>
-                <aside className=" basis-2/3">
+                <aside className="  md:basis-2/3">
                     <h1 className="font-semibold text-[#291507] text-4xl mb-6">
                         {cat.name}
                     </h1>

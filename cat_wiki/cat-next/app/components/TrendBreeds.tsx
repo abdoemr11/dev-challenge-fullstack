@@ -11,9 +11,12 @@ export default function TrendBreeds() {
                 66+ Breeds For you to discover
             </p>
             <div className="">
-                <p className="text-[#29150799] text-lg text-right -mt-16">
+                <div className="text-[#29150799] justify-end sm:text-left mt-16 flex items-center gap-4 mb-8">
                     SEE MORE
-                </p>
+                    <span className="material-icons-outlined text-[#7F736A]">
+                        trending_flat
+                    </span>
+                </div>
                 <div className="flex flex-wrap gap-12">
                     {[1, 2, 3, 4].map((im) => (
                         <div

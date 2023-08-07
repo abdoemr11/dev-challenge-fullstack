@@ -6,7 +6,7 @@ export default function SearchCat({ breeds }: { breeds: Breed[] }) {
     const [searchTerm, setSearchTerm] = useState("");
     const [showModal, setShowModal] = useState(false);
 
-    const filteredBreeds = breeds.filter((breed) =>
+    const filteredBreeds: Breed[] = breeds.filter((breed) =>
         breed.name?.toLowerCase().includes(searchTerm.toLowerCase())
     );
     const openModal = () => {

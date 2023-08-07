@@ -15,10 +15,11 @@ export default function Error({
     }, [error]);
 
     return (
-        <div>
-            <h2>Something went wrong: </h2>
-            <p>{error.message}</p>
+        <div className="flex justify-center items-center min-h-[calc(100vh-180px)] flex-col gap-y-8">
+            <h2 className="font-bold text-xl">Something went wrong: </h2>
+            <p className="font-medium">{error.message}</p>
             <button
+                className="border p-4 bg-slate-300"
                 onClick={
                     // Attempt to recover by trying to re-render the segment
                     () => reset()

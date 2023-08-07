@@ -15,8 +15,8 @@ export default function Article() {
                     calming chemicals in your body which lower your stress and
                     anxiety leves
                 </p>{" "}
-                <div className="text-[#29150799] text-lg text-right sm:text-left mt-16">
-                    SEE MORE
+                <div className="text-[#29150799] text-lg text-right sm:text-left mt-16 flex items-center gap-4 mb-8">
+                    READ MORE
                     <span className="material-icons-outlined text-[#7F736A]">
                         trending_flat
                     </span>
@@ -31,7 +31,7 @@ export default function Article() {
                 <Image
                     src={image1}
                     alt="The importance of cat"
-                    className="max-w-full text-left"
+                    className="max-w-full ml-auto"
                 />
                 <Image
                     src={image3}

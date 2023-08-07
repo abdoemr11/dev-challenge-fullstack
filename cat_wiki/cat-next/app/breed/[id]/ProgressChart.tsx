@@ -18,7 +18,7 @@ export default function ProgressChart({
                         key={index}
                         className={`${
                             highlighted ? "bg-[#544439]" : "bg-[#E0E0E0]"
-                        }  w-8   sm:w-[3.75rem] h-3 rounded-lg`}
+                        }  w-8    sm:w-12 lg:w-[3.75rem] h-3 rounded-lg`}
                     ></span>
                 ))}
             </div>
