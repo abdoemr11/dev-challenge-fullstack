@@ -7,19 +7,11 @@ import {
 } from "../../utils/cats";
 import ProgressChart from "./ProgressChart";
 import CatHitSearch from "./CatHitSearch";
-import Error from "./error";
 
 export default async function Page({ params }: { params: { id: string } }) {
     const cat = await getSingleCat(params.id);
     const images = await getBreedImages(params.id);
     await registerCatSearch(params.id);
-    // console.log(images);
-    if (!cat.id)
-        return (
-            <div className="flex justify-center items-center h-[calc(100vh-200px)]">
-                {"Can't find this breed"}
-            </div>
-        );
     const coverImage = images[0];
 
     return (
@@ -28,15 +20,18 @@ export default async function Page({ params }: { params: { id: string } }) {
             <section className="flex flex-wrap justify-between gap-y-8">
                 <aside>
                     <div className="relative">
-                        <Image
-                            src={coverImage.url}
-                            key={coverImage.id}
-                            alt={coverImage.id}
-                            width={275}
-                            height={275}
-                            className="w-[278px] aspect-square relative   rounded-3xl
+                        {coverImage && (
+                            <Image
+                                src={coverImage.url}
+                                key={coverImage.id}
+                                alt={coverImage.id}
+                                width={275}
+                                height={275}
+                                className="w-[278px] aspect-square relative   rounded-3xl
                          "
-                        />
+                            />
+                        )}
+
                         <span className="absolute bg-[#DEC68B] -left-4 h-5/6 w-8 top-1/2 -translate-y-1/2 -z-10"></span>
                     </div>
                 </aside>
