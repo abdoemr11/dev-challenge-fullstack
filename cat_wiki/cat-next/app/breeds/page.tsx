@@ -4,6 +4,7 @@ import {
     getBreedWithImages,
     getTopSearchedCat,
 } from "../utils/cats";
+export const dynamic = "force-dynamic";
 
 export default async function Page() {
     const topBreeds = await getTopSearchedCat();

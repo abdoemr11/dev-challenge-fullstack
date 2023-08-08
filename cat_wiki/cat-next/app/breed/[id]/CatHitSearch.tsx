@@ -7,6 +7,7 @@ export default function CatHitSearch({ catId }: { catId: string }) {
             await registerCatSearch(catId);
         };
         searchTheCat();
-    }, [catId]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     return <div></div>;
 }

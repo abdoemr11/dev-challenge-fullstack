@@ -12,9 +12,16 @@ import Error from "./error";
 export default async function Page({ params }: { params: { id: string } }) {
     const cat = await getSingleCat(params.id);
     const images = await getBreedImages(params.id);
-    const coverImage = images[0];
+    await registerCatSearch(params.id);
     // console.log(images);
-    if (!cat.id) return <div>{"Can't find this breed"}</div>;
+    if (!cat.id)
+        return (
+            <div className="flex justify-center items-center h-[calc(100vh-200px)]">
+                {"Can't find this breed"}
+            </div>
+        );
+    const coverImage = images[0];
+
     return (
         <div className="mb-24 sm:mb-44">
             <CatHitSearch catId={params.id} />

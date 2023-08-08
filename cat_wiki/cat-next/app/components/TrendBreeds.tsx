@@ -6,6 +6,7 @@ interface CatWithImage {
     imageUrl: string;
     breedName: string;
 }
+
 export default async function TrendBreeds() {
     const trendbreeds = await getTopSearchedCat();
     let breeds = await getCatBreads();
@@ -49,7 +50,7 @@ export default async function TrendBreeds() {
                         (im) =>
                             im.imageUrl !== "" && (
                                 <div key={im.catId}>
-                                    <Link href={im.catId}>
+                                    <Link href={`breed/${im.catId}`}>
                                         <Image
                                             src={im.imageUrl}
                                             className="w-[300px] h-[300px] bg-green-800"

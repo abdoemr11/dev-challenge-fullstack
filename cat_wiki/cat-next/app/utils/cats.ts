@@ -1,6 +1,6 @@
 import PocketBase from "pocketbase";
 
-const pb = new PocketBase(process.env.PB_URL);
+const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
 let authData: any = undefined;
 export async function getCatBreads(): Promise<Breed[]> {
     const res = await fetch(`https://api.thecatapi.com/v1/breeds`, {
@@ -47,7 +47,7 @@ export async function getBreedImages(id: string): Promise<CatImage[]> {
             }
         );
         console.log("from getting the breed images", res.ok);
-        console.log(++counter);
+        console.log(++counter, process.env.CAT_KEY);
         return res.json();
     } catch (error) {
         console.log("Failed to fetch the breed images with id: ", id, error);
@@ -58,13 +58,17 @@ export async function getBreedImages(id: string): Promise<CatImage[]> {
 }
 
 export async function registerCatSearch(id: string): Promise<void> {
-    if (!authData) await authinticatePB();
+    try {
+        // if (!authData) await authinticatePB();
 
-    const data = {
-        cat_id: id,
-    };
-    const record = await pb.collection("cat_trends").create(data);
-    console.log(record);
+        const data = {
+            cat_id: id,
+        };
+        const record = await pb.collection("cat_trends").create(data);
+        console.log("The record shoulb be here", record);
+    } catch (error) {
+        console.log(error);
+    }
 }
 type CatRecord = { cat_id: string };
 export async function getTopSearchedCat(): Promise<CatRecord[]> {
@@ -99,8 +103,16 @@ export async function getBreedWithImages(catIds: { cat_id: string }[]) {
     return catImages;
 }
 async function authinticatePB() {
-    authData = await pb.admins.authWithPassword(
-        "abdoemr11@gmail.com",
-        "123ASDzx.."
-    );
+    try {
+        console.log("authenticating", process.env.PB_MAIL as string);
+
+        authData = await pb.admins.authWithPassword(
+            process.env.PB_MAIL as string,
+            process.env.PB_PASS as string
+        );
+    } catch (error) {
+        console.log(error);
+    }
 }
+
+authinticatePB();

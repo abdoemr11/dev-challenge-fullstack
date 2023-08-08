@@ -9,6 +9,11 @@ import Article from "./components/Article";
 
 export default async function Home() {
     let breeds: Breed[] = [];
+    console.log(
+        "testing the env variable",
+        process.env.CAT_API,
+        process.env.PB_URL
+    );
     try {
         breeds = await getCatBreads();
     } catch (error) {
