@@ -6,7 +6,7 @@ export default function Layout() {
         <main className="container py-6 mx-auto px-8 sm:px-16">
             <header className="flex justify-between">
                 <Image alt="dev challenge" src={logo} className="mb-6" />
-                <section>
+                <section className="flex gap-2">
                     <Image
                         width={32}
                         height={3 * 16}
@@ -31,7 +31,7 @@ export default function Layout() {
                     </div>
                 </section>
             </header>
-            <footer>
+            <footer className="flex justify-between">
                 <p>created by abdoemr11</p>
                 <p>devchallenges.com</p>
             </footer>

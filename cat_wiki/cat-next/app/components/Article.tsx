@@ -2,6 +2,7 @@ import Image from "next/image";
 import image1 from "../assets/image 1.png";
 import image2 from "../assets/image 2.png";
 import image3 from "../assets/image 3.png";
+import Link from "next/link";
 export default function Article() {
     return (
         <section className="py-8 sm:py-24 flex flex-wrap gap-x-6">
@@ -15,18 +16,21 @@ export default function Article() {
                     calming chemicals in your body which lower your stress and
                     anxiety leves
                 </p>{" "}
-                <div className="text-[#29150799] text-lg text-right sm:text-left mt-16 flex items-center gap-4 mb-8">
-                    READ MORE
-                    <span className="material-icons-outlined text-[#7F736A]">
-                        trending_flat
-                    </span>
-                </div>
+                <Link href={"article"}>
+                    {" "}
+                    <div className="text-[#29150799] text-lg text-right sm:text-left mt-16 flex items-center gap-4 mb-8">
+                        READ MORE
+                        <span className="material-icons-outlined text-[#7F736A]">
+                            trending_flat
+                        </span>
+                    </div>
+                </Link>
             </div>
             <div className=" columns-2 flex-1 ">
                 <Image
                     src={image2}
                     alt="The importance of cat"
-                    className="max-w-full"
+                    className="max-w-full ml-auto"
                 />
                 <Image
                     src={image1}

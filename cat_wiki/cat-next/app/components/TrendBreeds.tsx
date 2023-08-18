@@ -37,7 +37,7 @@ export default async function TrendBreeds() {
                     </div>
                 </Link>
                 <div className="flex flex-wrap gap-12">
-                    {breeds.map(
+                    {breeds.slice(0, 3).map(
                         (im) =>
                             im.imageUrl !== "" && (
                                 <div key={im.catId}>
