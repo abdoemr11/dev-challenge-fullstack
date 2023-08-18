@@ -5,18 +5,18 @@ export default function Page() {
                 The Importance of Having Cats
             </h1>
             <p className="mb-4">
-                Cats, often regarded as mysterious and independent creatures,
+                {`Cats, often regarded as mysterious and independent creatures,
                 have been cherished companions of humans for centuries. Their
                 presence brings a myriad of benefits to our lives, both physical
                 and emotional. Let's explore the significance of having cats in
-                our homes.
+                our homes.`}
             </p>
             <h2 className="text-xl font-semibold mb-2">1. Stress Reduction</h2>
             <p className="mb-4">
-                Studies have shown that the soothing presence of a cat can help
+                {`Studies have shown that the soothing presence of a cat can help
                 reduce stress and anxiety. The rhythmic sound of a cat's purring
                 has a calming effect, promoting a sense of relaxation and
-                tranquility.
+                tranquility.`}
             </p>
             <h2 className="text-xl font-semibold mb-2">2. Companionship</h2>
             <p className="mb-4">
@@ -27,10 +27,10 @@ export default function Page() {
             </p>
             <h2 className="text-xl font-semibold mb-2">3. Entertainment</h2>
             <p className="mb-4">
-                Cats are natural entertainers. From chasing a simple feather toy
+                {`Cats are natural entertainers. From chasing a simple feather toy
                 to performing acrobatic leaps, their playful behavior brings joy
                 and laughter to our daily lives. Watching a cat's antics can be
-                a delightful way to unwind after a long day.
+                a delightful way to unwind after a long day.`}
             </p>
             <h2 className="text-xl font-semibold mb-2">
                 4. Allergen Reduction
@@ -52,18 +52,18 @@ export default function Page() {
             </p>
             <h2 className="text-xl font-semibold mb-2">6. Health Benefits</h2>
             <p className="mb-4">
-                The act of petting a cat releases endorphins, the body's natural
+                {`The act of petting a cat releases endorphins, the body's natural
                 feel-good chemicals. This interaction not only enhances your
                 mood but also has potential cardiovascular benefits, such as
-                lowering blood pressure and reducing the risk of heart disease.
+                lowering blood pressure and reducing the risk of heart disease.`}
             </p>
             <p>
-                In conclusion, the presence of cats in our lives goes beyond
+                {`In conclusion, the presence of cats in our lives goes beyond
                 their adorable faces and soft fur. Their calming influence,
                 companionship, entertainment, and even health-related advantages
                 make them valuable additions to any household. If you're
                 considering bringing a pet into your home, a cat could be the
-                purrfect choice.
+                purrfect choice.`}
             </p>
         </article>
     );

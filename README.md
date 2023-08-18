@@ -12,3 +12,10 @@
 - It's the perfect example of Static Side rendering. The only dynamic aspect is the top searched cat breads.
 - I can achive this with with key value store and to presist it I can store it to pocketbase 
 - The Boundary for errors and Loading is something that need more researching.
+
+
+## Auth App
+- After struggle with redirect url for OAuth. I finally got the correct one from pocketbase documentaion.
+- I use Next js mainly for its boilerplate and buil-in routing no thing more. It's a client side app
+- for newly registered users, They should be asked to provide their full information. This step isn't provided in the figma design. I should use the same Edit user info widget but I have to detect that is's a new user first. 
+-  
