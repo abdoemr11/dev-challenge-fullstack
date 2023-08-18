@@ -1,5 +1,10 @@
 import Image from "next/image";
-import { getBreedImages, getCatBreads, getTopSearchedCat } from "../utils/cats";
+import {
+    getBreedImages,
+    getBreedWithImages,
+    getCatBreads,
+    getTopSearchedCat,
+} from "../utils/cats";
 import Link from "next/link";
 interface CatWithImage {
     catId: string;
@@ -8,23 +13,9 @@ interface CatWithImage {
 }
 
 export default async function TrendBreeds() {
-    const trendbreeds = await getTopSearchedCat();
-    let breeds = await getCatBreads();
-
-    const catImages: CatWithImage[] = await Promise.all(
-        trendbreeds.map(async (tb) => {
-            const breedImage = await getBreedImages(tb.cat_id);
-            console.log("image id", tb.cat_id, tb.cat_id);
-            const breedName =
-                breeds && breeds.find((br) => br.id === tb.cat_id)?.name;
-            const x: CatWithImage = {
-                catId: tb.cat_id,
-                imageUrl: breedImage.length !== 0 ? breedImage[0].url : "",
-                breedName: breedName || "",
-            };
-            return x;
-        })
-    );
+    const topBreeds = await getTopSearchedCat();
+    const breeds = await getBreedWithImages(topBreeds);
+    console.log(breeds);
     return (
         <section className="bg-[#E3E1DC] py-10 px-7 sm:px-28">
             <div>
@@ -46,7 +37,7 @@ export default async function TrendBreeds() {
                     </div>
                 </Link>
                 <div className="flex flex-wrap gap-12">
-                    {catImages.map(
+                    {breeds.map(
                         (im) =>
                             im.imageUrl !== "" && (
                                 <div key={im.catId}>
