@@ -107,11 +107,3 @@ export default async function Page({ params }: { params: { id: string } }) {
         </div>
     );
 }
-
-export async function generateStaticParams() {
-    const cats = await getCatBreads();
-
-    return cats.map((cat) => ({
-        id: cat.id,
-    }));
-}
